@@ -1,5 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
+
+import api from "../apis/index";
 
 function Signup() {
   // O useState retorna uma array que sempre tem 2 elementos: o índice 0 sendo o seu state (que não precisa mais ser somente um objeto), e o índice 1 sendo uma função para atualizar esse state
@@ -31,7 +33,7 @@ function Signup() {
     try {
       event.preventDefault();
 
-      const response = await axios.post("http://localhost:4000/signup", {
+      const response = await api.post("/signup", {
         ...state,
         address: { ...address },
       });
@@ -178,6 +180,10 @@ function Signup() {
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
+
+      <div className="mt-4">
+        <Link to="/login">Already have an account? Sign-in here!</Link>
+      </div>
     </form>
   );
 }
