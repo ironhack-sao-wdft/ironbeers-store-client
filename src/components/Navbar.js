@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/authContext";
 
 function Navbar() {
-  const { loggedInUser } = useContext(AuthContext);
+  const { loggedInUser, setLoggedInUser } = useContext(AuthContext);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -63,12 +63,19 @@ function Navbar() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <NavLink to="/profile" component={Dropdown.Item}>
+                <Dropdown.Item to="/profile" as={NavLink}>
                   Profile
-                </NavLink>
-                <NavLink to="/logout" component={Dropdown.Item}>
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={(event) => {
+                    event.preventDefault();
+                    // Fazendo processo de Logout
+                    setLoggedInUser({ user: {}, token: "" });
+                    localStorage.removeItem("loggedInUser");
+                  }}
+                >
                   Logout
-                </NavLink>
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           ) : (

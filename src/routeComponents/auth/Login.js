@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 
-import api from "../apis/index";
-import { AuthContext } from "../contexts/authContext";
+import api from "../../apis/index";
+import { AuthContext } from "../../contexts/authContext";
 
 function Login() {
   // Consumindo nosso state global do Context. Temos acesso pois Login é um componente filho do AuthContextProvider no App.js

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import api from "../apis/index";
+import api from "../../apis/index";
 
 function Profile() {
   const [state, setState] = useState({

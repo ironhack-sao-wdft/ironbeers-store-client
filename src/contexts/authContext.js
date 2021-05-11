@@ -13,7 +13,7 @@ function AuthContextComponent(props) {
     const parsedStoredUser = JSON.parse(storedUser || '""');
 
     // Se existe um usuário logado armazenado no localStorage, atualize o state global
-    if (parsedStoredUser.user.name) {
+    if (parsedStoredUser.user) {
       setLoggedInUser({ ...parsedStoredUser });
     }
   }, []);
