@@ -50,6 +50,15 @@ function Navbar() {
               All Beers
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink
+              className="nav-link"
+              activeClassName="active"
+              to="/checkout"
+            >
+              Checkout
+            </NavLink>
+          </li>
         </ul>
         <div className="mr-3">
           {loggedInUser.user.name ? (

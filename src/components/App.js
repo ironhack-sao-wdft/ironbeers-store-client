@@ -8,6 +8,7 @@ import ProtectedRoute from "../routeComponents/auth/ProtectedRoute";
 import Navbar from "./Navbar";
 
 import ProductFeed from "../routeComponents/product/ProductFeed";
+import Checkout from "../routeComponents/checkout/Checkout";
 
 import { AuthContextComponent } from "../contexts/authContext";
 
@@ -22,6 +23,7 @@ function App() {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
             <ProtectedRoute exact path="/profile" component={Profile} />
+            <ProtectedRoute exact path="/checkout" component={Checkout} />
           </Switch>
         </div>
       </AuthContextComponent>
