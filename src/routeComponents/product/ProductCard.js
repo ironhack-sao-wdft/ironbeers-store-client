@@ -4,12 +4,12 @@ import "./ProductCard.css";
 function ProductCard(props) {
   return (
     <Link
-      className="text-decoration-none"
+      className="text-decoration-none "
       key={props.beer._id}
       to={`/product/${props.beer._id}`}
     >
       <div
-        className="card card-fixed-height text-dark shadow rounded border-0"
+        className="card card-fixed-height text-dark shadow rounded border-0 m-2"
         style={{ width: "100%" }}
       >
         <img

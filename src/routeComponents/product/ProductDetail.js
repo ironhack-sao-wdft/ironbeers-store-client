@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { useParams, Link, useHistory } from "react-router-dom";
 
 import api from "../../apis/index";
+import { AuthContext } from "../../contexts/authContext";
+import ConfirmationModal from "../../components/ConfirmationModal";
 
 function ProductDetails() {
   const [state, setState] = useState({
@@ -20,9 +22,13 @@ function ProductDetails() {
     volume: 0,
     expire_date: "",
   });
+  const [showModal, setShowModal] = useState(false);
 
   // Equivalente a usar o props.match.params.id
   const { id } = useParams();
+  const history = useHistory();
+
+  const { loggedInUser } = useContext(AuthContext);
 
   useEffect(() => {
     async function fetchBeer() {
@@ -39,6 +45,18 @@ function ProductDetails() {
 
   return (
     <div>
+      {loggedInUser.user.role === "ADMIN" ? (
+        <div className="row d-flex justify-content-end">
+          <Link to={`/product/edit/${id}`} className="btn btn-warning mr-3">
+            Edit
+          </Link>
+          {/* Abrimos um modal de confirmação antes de deletar o produto */}
+          <button className="btn btn-danger" onClick={() => setShowModal(true)}>
+            Delete
+          </button>
+        </div>
+      ) : null}
+
       <img
         className="card-img product-img mx-auto mt-2"
         src={state.image_url}
@@ -95,11 +113,22 @@ function ProductDetails() {
 
         <p className="card-text mb-0">
           <small>
-            <strong>Created by:</strong>{" "}
+            <strong>Created by:</strong>
             {state.contributed_by ? state.contributed_by.split("<")[0] : ""}
           </small>
         </p>
+
+        <button className="btn btn-primary btn-lg">Add to Cart</button>
       </div>
+
+      <ConfirmationModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={() => history.push(`/product/delete/${id}`)}
+        title="Are you sure you want to delete this product?"
+      >
+        <p>This action is irreversible. To confirm, click "Confirm".</p>
+      </ConfirmationModal>
     </div>
   );
 }

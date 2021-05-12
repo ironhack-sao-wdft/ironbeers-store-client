@@ -1,78 +1,6 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-
-import api from "../../apis/index";
-
-function ProductForm() {
-  const history = useHistory();
-
-  const [state, setState] = useState({
-    name: "",
-    tagline: "",
-    first_brewed: "",
-    description: "",
-    image_url: "",
-    abv: 0,
-    food_pairing: [],
-    contributed_by: "",
-    cost: 0,
-    price: 0,
-    qtt_in_stock: 0,
-    volume: 0,
-    expire_date: "",
-  });
-
-  function handleChange(event) {
-    if (event.target.files) {
-      setState({ ...state, [event.target.name]: event.target.files[0] });
-    } else {
-      setState({ ...state, [event.target.name]: event.target.value });
-    }
-  }
-
-  async function handleFileUpload(file) {
-    try {
-      // FormData é uma função construtora global nativa do Javascript que cria um objeto de Formulario no formato multipart/form esperado pelo backend
-      const uploadData = new FormData();
-
-      // 'image' precisa bater com o valor de uploadCloud.single() no nosso backend
-      uploadData.append("image", file);
-
-      const response = await api.post("/image-upload", uploadData);
-
-      return response.data.fileUrl;
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  async function handleSubmit(event) {
-    try {
-      event.preventDefault();
-
-      let uploadedImageUrl = "";
-      if (state.image_url) {
-        uploadedImageUrl = await handleFileUpload(state.image_url);
-      }
-
-      const response = await api.post("/product", {
-        ...state,
-        image_url: uploadedImageUrl,
-      });
-
-      // Redireciona programaticamente para a URL '/'
-      history.push("/");
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
+function ProductForm(props) {
   return (
-    <form className="mb-5" onSubmit={handleSubmit}>
-      <h1>New Product </h1>
-
-      <hr />
-
+    <form className="mb-5" onSubmit={props.handleSubmit}>
       <div className="form-group">
         <label htmlFor="productFormName">Beer Name</label>
         <input
@@ -80,8 +8,8 @@ function ProductForm() {
           className="form-control"
           id="productFormName"
           name="name"
-          onChange={handleChange}
-          value={state.name}
+          onChange={props.handleChange}
+          value={props.state.name}
         />
       </div>
       <div className="form-group">
@@ -91,8 +19,8 @@ function ProductForm() {
           className="form-control"
           id="productFormTagline"
           name="tagline"
-          onChange={handleChange}
-          value={state.tagline}
+          onChange={props.handleChange}
+          value={props.state.tagline}
         />
       </div>
 
@@ -103,8 +31,8 @@ function ProductForm() {
           className="form-control"
           id="productFormFirstBrewed"
           name="first_brewed"
-          onChange={handleChange}
-          value={state.first_brewed}
+          onChange={props.handleChange}
+          value={props.state.first_brewed}
         />
       </div>
 
@@ -115,8 +43,8 @@ function ProductForm() {
           className="form-control"
           id="productFormDescription"
           name="description"
-          onChange={handleChange}
-          value={state.description}
+          onChange={props.handleChange}
+          value={props.state.description}
         />
       </div>
 
@@ -127,7 +55,7 @@ function ProductForm() {
           className="form-control"
           id="productFormImage"
           name="image_url"
-          onChange={handleChange}
+          onChange={props.handleChange}
         />
       </div>
 
@@ -138,8 +66,8 @@ function ProductForm() {
           className="form-control"
           id="productFormAbv"
           name="abv"
-          onChange={handleChange}
-          value={state.abv}
+          onChange={props.handleChange}
+          value={props.state.abv}
         />
       </div>
 
@@ -150,8 +78,8 @@ function ProductForm() {
           className="form-control"
           id="productFormFoodPairing"
           name="food_pairing"
-          onChange={handleChange}
-          value={state.food_pairing}
+          onChange={props.handleChange}
+          value={props.state.food_pairing}
         />
       </div>
 
@@ -163,8 +91,8 @@ function ProductForm() {
             className="form-control"
             id="productFormAuthor"
             name="contributed_by"
-            onChange={handleChange}
-            value={state.contributed_by}
+            onChange={props.handleChange}
+            value={props.state.contributed_by}
           />
         </div>
 
@@ -175,8 +103,8 @@ function ProductForm() {
             className="form-control"
             id="productFormExpireDate"
             name="expire_date"
-            onChange={handleChange}
-            value={state.expire_date}
+            onChange={props.handleChange}
+            value={props.state.expire_date}
           />
         </div>
       </div>
@@ -189,8 +117,8 @@ function ProductForm() {
             className="form-control"
             id="productFormCost"
             name="cost"
-            onChange={handleChange}
-            value={state.cost}
+            onChange={props.handleChange}
+            value={props.state.cost}
           />
         </div>
 
@@ -201,8 +129,8 @@ function ProductForm() {
             className="form-control"
             id="productFormPrice"
             name="price"
-            onChange={handleChange}
-            value={state.price}
+            onChange={props.handleChange}
+            value={props.state.price}
           />
         </div>
 
@@ -213,8 +141,8 @@ function ProductForm() {
             className="form-control"
             id="productFormVolume"
             name="volume"
-            onChange={handleChange}
-            value={state.volume}
+            onChange={props.handleChange}
+            value={props.state.volume}
           />
         </div>
 
@@ -225,8 +153,8 @@ function ProductForm() {
             className="form-control"
             id="productFormQttInStock"
             name="qtt_in_stock"
-            onChange={handleChange}
-            value={state.qtt_in_stock}
+            onChange={props.handleChange}
+            value={props.state.qtt_in_stock}
           />
         </div>
       </div>
