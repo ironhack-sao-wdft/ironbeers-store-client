@@ -5,9 +5,12 @@ import Signup from "../routeComponents/auth/Signup";
 import Login from "../routeComponents/auth/Login";
 import Profile from "../routeComponents/auth/Profile";
 import ProtectedRoute from "../routeComponents/auth/ProtectedRoute";
+import AdminRoute from "../routeComponents/auth/AdminRoute";
 import Navbar from "./Navbar";
 
 import ProductFeed from "../routeComponents/product/ProductFeed";
+import ProductDetail from "../routeComponents/product/ProductDetail";
+import ProductForm from "../routeComponents/product/ProductForm";
 
 import { AuthContextComponent } from "../contexts/authContext";
 
@@ -22,6 +25,8 @@ function App() {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
             <ProtectedRoute exact path="/profile" component={Profile} />
+            <AdminRoute exact path="/create-product" component={ProductForm} />
+            <Route exact path="/product/:id" component={ProductDetail} />
           </Switch>
         </div>
       </AuthContextComponent>

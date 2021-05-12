@@ -3,3 +3,8 @@
   width: 50px;
   object-fit: cover;
 }
+
+.card-fixed-height {
+  height: 330px;
+  max-height: 330px;
+}

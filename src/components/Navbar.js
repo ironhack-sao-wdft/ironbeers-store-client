@@ -36,15 +36,19 @@ function Navbar() {
               Home
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink
-              className="nav-link"
-              activeClassName="active"
-              to="/new-beer"
-            >
-              New Beer
-            </NavLink>
-          </li>
+          {/* Esconder o link de quem não for Admin */}
+          {loggedInUser.user.role === "ADMIN" ? (
+            <li className="nav-item">
+              <NavLink
+                className="nav-link"
+                activeClassName="active"
+                to="/create-product"
+              >
+                Create Product
+              </NavLink>
+            </li>
+          ) : null}
+
           <li className="nav-item">
             <NavLink className="nav-link" activeClassName="active" to="/all">
               All Beers
@@ -56,7 +60,7 @@ function Navbar() {
             <Dropdown>
               <Dropdown.Toggle variant="primary" id="dropdown-basic">
                 <img
-                  src={`https://ui-avatars.com/api/?name=${loggedInUser.user.name}&size=32`}
+                  src={`https://ui-avatars.com/api/?name=${loggedInUser.user.name}&size=32&background=random`}
                   className="rounded-circle"
                   alt="Profile"
                 />

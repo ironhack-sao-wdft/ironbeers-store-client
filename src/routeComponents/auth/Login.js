@@ -33,8 +33,6 @@ function Login() {
     }
   }
 
-  console.log(loggedInUser);
-
   return (
     <form onSubmit={handleSubmit}>
       <h1>Sign-In to your account</h1>

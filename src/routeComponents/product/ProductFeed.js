@@ -10,8 +10,6 @@ function ProductFeed() {
       try {
         const response = await api.get("/product");
 
-        console.log(response);
-
         setBeers([...response.data]);
       } catch (err) {
         console.error(err);
@@ -24,7 +22,7 @@ function ProductFeed() {
     <div className="row">
       {beers.map((beer) => {
         return (
-          <div className="col-12 col-sm-4 col-md-3">
+          <div key={beer._id} className="col-12 col-sm-4 col-md-3">
             <ProductCard beer={beer} />
           </div>
         );

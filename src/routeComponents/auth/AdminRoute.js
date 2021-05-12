@@ -12,7 +12,7 @@ function ProtectedRoute({ component: Component, ...rest }) {
       render={(routeProps) => {
         // Se o usuário estiver logado, renderize o componente original present na prop component na chamada da ProtectedRoute
 
-        if (loggedInUser.user.name) {
+        if (loggedInUser.user.role === "ADMIN") {
           return <Component {...routeProps} />;
         } else {
           // Redirecione o usuário para o Login

@@ -6,10 +6,10 @@ function ProductCard(props) {
     <Link
       className="text-decoration-none"
       key={props.beer._id}
-      to={`/beer/${props.beer._id}`}
+      to={`/product/${props.beer._id}`}
     >
       <div
-        className="card text-dark shadow rounded border-0"
+        className="card card-fixed-height text-dark shadow rounded border-0"
         style={{ width: "100%" }}
       >
         <img
@@ -22,15 +22,12 @@ function ProductCard(props) {
             <small>{props.beer.name}</small>
           </h4>
 
-          <p>
-            <h3 className="card-text">
-              {Number(props.beer.price).toLocaleString(
-                window.navigator.languages[0],
-                { style: "currency", currency: "USD" }
-              )}
-            </h3>
-          </p>
-
+          <h3 className="card-text">
+            {Number(props.beer.price).toLocaleString(
+              window.navigator.languages[0],
+              { style: "currency", currency: "USD" }
+            )}
+          </h3>
           <p className="mb-0">
             <small className="card-text">{props.beer.volume}ml</small>
           </p>
