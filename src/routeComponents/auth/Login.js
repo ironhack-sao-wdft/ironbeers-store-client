@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
 
 import api from "../../apis/index";
 import { AuthContext } from "../../contexts/authContext";
@@ -12,6 +12,15 @@ function Login() {
     email: "",
     password: "",
   });
+
+  const history = useHistory();
+
+  // Se o usuário já estiver logado, redireciona pra página inicial
+  useEffect(() => {
+    if (loggedInUser.user.name) {
+      history.push("/");
+    }
+  }, [loggedInUser, history]);
 
   function handleChange(event) {
     setState({ ...state, [event.target.name]: event.target.value });
