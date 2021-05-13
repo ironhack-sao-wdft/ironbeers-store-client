@@ -14,37 +14,46 @@ import ProductCreate from "../routeComponents/product/ProductCreate";
 import ProductEdit from "../routeComponents/product/ProductEdit";
 import ProductDelete from "../routeComponents/product/ProductDelete";
 
+import Checkout from "../routeComponents/checkout/Checkout";
+import OrderSuccess from "../routeComponents/checkout/OrderSuccess";
+
 import { AuthContextComponent } from "../contexts/authContext";
+import { CartContextComponent } from "../contexts/cartContext";
 
 function App() {
   return (
     <BrowserRouter>
       <AuthContextComponent>
-        <Navbar />
-        <div className="container mt-5">
-          <Switch>
-            <Route exact path="/" component={ProductFeed} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/login" component={Login} />
-            <ProtectedRoute exact path="/profile" component={Profile} />
-            <AdminRoute
-              exact
-              path="/create-product"
-              component={ProductCreate}
-            />
-            <Route exact path="/product/:id" component={ProductDetail} />
-            <AdminRoute
-              exact
-              path="/product/edit/:id"
-              component={ProductEdit}
-            />
-            <AdminRoute
-              exact
-              path="/product/delete/:id"
-              component={ProductDelete}
-            />
-          </Switch>
-        </div>
+        <CartContextComponent>
+          <Navbar />
+
+          <div className="container mt-5">
+            <Switch>
+              <Route exact path="/" component={ProductFeed} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/login" component={Login} />
+              <ProtectedRoute exact path="/profile" component={Profile} />
+              <AdminRoute
+                exact
+                path="/create-product"
+                component={ProductCreate}
+              />
+              <Route exact path="/product/:id" component={ProductDetail} />
+              <AdminRoute
+                exact
+                path="/product/edit/:id"
+                component={ProductEdit}
+              />
+              <AdminRoute
+                exact
+                path="/product/delete/:id"
+                component={ProductDelete}
+              />
+              <ProtectedRoute exact path="/checkout" component={Checkout} />
+              <Route exact path="/order/success" component={OrderSuccess} />
+            </Switch>
+          </div>
+        </CartContextComponent>
       </AuthContextComponent>
     </BrowserRouter>
   );

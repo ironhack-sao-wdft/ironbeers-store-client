@@ -3,6 +3,7 @@ import { useParams, Link, useHistory } from "react-router-dom";
 
 import api from "../../apis/index";
 import { AuthContext } from "../../contexts/authContext";
+import { CartContext } from "../../contexts/cartContext";
 import ConfirmationModal from "../../components/ConfirmationModal";
 
 function ProductDetails() {
@@ -23,12 +24,14 @@ function ProductDetails() {
     expire_date: "",
   });
   const [showModal, setShowModal] = useState(false);
+  const [quantity, setQuantity] = useState(0);
 
   // Equivalente a usar o props.match.params.id
   const { id } = useParams();
   const history = useHistory();
 
   const { loggedInUser } = useContext(AuthContext);
+  const { cart, setCart } = useContext(CartContext);
 
   useEffect(() => {
     async function fetchBeer() {
@@ -111,14 +114,32 @@ function ProductDetails() {
           ))}
         </ul>
 
-        <p className="card-text mb-0">
+        <p className="card-text mb-3">
           <small>
             <strong>Created by:</strong>
             {state.contributed_by ? state.contributed_by.split("<")[0] : ""}
           </small>
         </p>
 
-        <button className="btn btn-primary btn-lg">Add to Cart</button>
+        <div className="form-group d-inline-block mr-3">
+          <label htmlFor="productDetailQuantity">Quantity: </label>
+          <input
+            type="number"
+            id="productDetailQuantity"
+            className="form-control"
+            value={quantity}
+            onChange={(event) => setQuantity(Number(event.target.value))}
+          />
+        </div>
+        <button
+          className="btn btn-primary btn-lg"
+          onClick={() => {
+            console.log(cart);
+            setCart([...cart, { qtt: quantity, productId: id }]);
+          }}
+        >
+          Add to Cart
+        </button>
       </div>
 
       <ConfirmationModal
