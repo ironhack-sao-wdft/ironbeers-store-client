@@ -6,6 +6,8 @@ import Login from "../routeComponents/auth/Login";
 import Profile from "../routeComponents/auth/Profile";
 import ProtectedRoute from "../routeComponents/auth/ProtectedRoute";
 import AdminRoute from "../routeComponents/auth/AdminRoute";
+import ForgotPassword from "../routeComponents/auth/ForgotPassword";
+import ResetPassword from "../routeComponents/auth/ResetPassword";
 import Navbar from "./Navbar";
 
 import ProductFeed from "../routeComponents/product/ProductFeed";
@@ -32,6 +34,8 @@ function App() {
               <Route exact path="/" component={ProductFeed} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/forgot-password" component={ForgotPassword} />
+              <Route exact path="/password-reset" component={ResetPassword} />
               <ProtectedRoute exact path="/profile" component={Profile} />
               <AdminRoute
                 exact

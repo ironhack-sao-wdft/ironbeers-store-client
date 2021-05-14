@@ -75,6 +75,10 @@ function Login() {
       <div className="mt-4">
         <Link to="/signup">Don't have an account? Sign-up here!</Link>
       </div>
+
+      <div className="mt-4">
+        <Link to="/forgot-password">Forgot your password?</Link>
+      </div>
     </form>
   );
 }

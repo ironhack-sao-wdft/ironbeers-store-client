@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import api from "../../apis/index";
 
@@ -20,6 +20,8 @@ function Signup() {
     country: "",
   });
 
+  const history = useHistory();
+
   function handleStateChange(event) {
     // a função de atualização de state dos Hooks é destrutiva, ou seja, sobrescreve o state pelo que vc mandar. Para salvar o state atual antes da atualização, utilize o operador spread:
     setState({ ...state, [event.target.name]: event.target.value });
@@ -39,6 +41,8 @@ function Signup() {
       });
 
       console.log(response);
+
+      history.push("/login");
     } catch (err) {
       console.error(err);
     }
